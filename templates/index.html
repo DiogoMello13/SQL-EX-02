@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda de contatos</title>
+  
+</head>
+<body>
+  <h1>Agenda de Contatos</h1>
+  <form action="/create" method="POST">
+    <input name='name' placeholder='Nome'>
+    <input name='email' placeholder='Email'>
+    <input name='phone' placeholder='Telefone'>
+    <button type="submit">Adicionar</button>
+  </form>
+  <ul>
+    {% for c in contatos %}
+      <li>
+        {% if c.complete == True %}
+          <s>{{ c.name }}</s> 
+          <s><{{ c.email }}</s>
+          <s>{{ c.phone }}</s>
+      {% else %}
+        <form action="/update/{{loop.index0}}" method='POST'>
+          <input name="name" value="{{c.name}}">
+          <input name="email" value="{{c.email}}">
+          <input name="phone" value="{{c.phone}}">
+      <button type='submit'>Editar</button>
+      <a href="/delete/{{loop.index0}}">
+        ❌ 
+      </a>
+      </li>
+        </form>
+        {% endif %}
+    {% endfor %}
+    </ul>
+  
+  
+</body>
+</html>
